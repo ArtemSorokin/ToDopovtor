@@ -12,3 +12,20 @@
   border-radius: 5px;
   padding: 10px;
 }
+
+.error {
+
+  border: solid red 10px;
+}
+.errorMessage {
+  color: red;
+}
+
+.filterButton{
+
+  background-color: green;
+}
+
+.isDone {
+  opacity: 0.5;
+}
