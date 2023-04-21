@@ -8,6 +8,7 @@ type TodolistPropsType = {
     removeTask: (id: string) => void
     filteringTask: (filter: FilterValueTypes) => void
     addTask: (titleTask: string) => void
+    checkTask: (id:string)=>void
 }
 
 export type TaskType = {
@@ -19,6 +20,8 @@ export type TaskType = {
 export const Todolist: FC<TodolistPropsType> = (props) => {
 
     let [inpTaskValue, setInpTaskValue] = useState('')
+    // let [check, setCheck] = useState(false)
+
 
     const removeTask = (id: string) => {
         props.removeTask(id)
@@ -44,6 +47,10 @@ export const Todolist: FC<TodolistPropsType> = (props) => {
     const changeFilterValue = (value:FilterValueTypes)=>{
         props.filteringTask(value)
     }
+    const onChangeCheck = (id:string)=>{
+        props.checkTask(id)
+        // setCheck(!check)
+    }
 
 
     return (
@@ -63,7 +70,7 @@ export const Todolist: FC<TodolistPropsType> = (props) => {
                                const removeTaskHandler = ()=> {  removeTask(task.id)}
                             return (
                                 <li key={task.id}>
-                                    <input type="checkbox" checked={task.isDone}/>
+                                    <input type="checkbox" checked={task.isDone} onClick={()=>onChangeCheck(task.id)}/>
                                     <span>{task.taskTitle}</span>
                                     <button onClick={removeTaskHandler} >X
                                     </button>
