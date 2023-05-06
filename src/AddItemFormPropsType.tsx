@@ -1,4 +1,6 @@
 import React, {ChangeEvent, FC, KeyboardEvent, useState} from "react";
+import {Button, IconButton, TextField} from "@mui/material";
+import AddBoxIcon from '@mui/icons-material/AddBox';
 
 export type AddItemFormPropsType = {
     addItem: (title: string) => void
@@ -7,10 +9,10 @@ export type AddItemFormPropsType = {
 
 export const AddItemForm:FC<AddItemFormPropsType> =(props)=>{
     let [inpTaskValue, setInpTaskValue] = useState('')
-    let [errorForTaskTitle, setErrorForTaskTitle] = useState(false)
+    let [errorForTaskTitle, setErrorForTaskTitle] = useState('')
 
     const changeInputValueHandler = (e: ChangeEvent<HTMLInputElement>)=> {
-        setErrorForTaskTitle(false)
+        setErrorForTaskTitle('')
         setInpTaskValue(e.currentTarget.value)
     }
     const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>)=>{
@@ -18,7 +20,7 @@ export const AddItemForm:FC<AddItemFormPropsType> =(props)=>{
             if(inpTaskValue.trim() !== ''){
                 props.addItem(inpTaskValue)
                 setInpTaskValue('')
-            } else setErrorForTaskTitle(true)
+            } else setErrorForTaskTitle("Title is required")
         }
     }
     const addTaskValueToState = (value:string)=>{
@@ -26,16 +28,21 @@ export const AddItemForm:FC<AddItemFormPropsType> =(props)=>{
             props.addItem(value);
             setInpTaskValue('')
         } else
-            setErrorForTaskTitle(true)
+            setErrorForTaskTitle("Title is required")
         return
     }
     return(
-        <div className= {errorForTaskTitle? 'error': ''} >
-            <input value={inpTaskValue} onChange={changeInputValueHandler}
+        <div  >
+            <TextField variant={'outlined'}
+                       label={'Введите название'}
+                       value={inpTaskValue} onChange={changeInputValueHandler}
                    onKeyPress={onKeyPressHandler }
+                       error={!!errorForTaskTitle}
+                       helperText={!!errorForTaskTitle ? errorForTaskTitle : ''}
             />
-            <button onClick={() => addTaskValueToState(inpTaskValue)}>+</button>
-            {errorForTaskTitle &&<div className='errorMessage'>Title is required</div> }
+            <IconButton onClick={() => addTaskValueToState(inpTaskValue)}   color={"primary"}>
+                < AddBoxIcon fontSize={'large'} />
+            </IconButton>
         </div>
     )
 }
