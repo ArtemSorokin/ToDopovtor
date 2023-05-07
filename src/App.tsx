@@ -8,13 +8,13 @@ import {AppBar, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@
 import {Menu} from "@mui/icons-material";
 
 export type FilterValueTypes = 'All' | 'ACTIVE' | 'COMPLETED'
-type TodolistType = {
+export type TodolistType = {
     id: string
     title: string
     filter: FilterValueTypes
 }
 
-type TaskStateType = {
+export type TaskStateType = {
     [key: string]: Array<TaskType>
 }
 
@@ -24,8 +24,8 @@ function App() {
     let tolistId2 = v1()
 
     let [todolists, setTodolists] = useState<Array<TodolistType>>(
-        [{id: tolistId1, title: 'What to learn', filter: 'ACTIVE'},
-            {id: tolistId2, title: 'What to Byu', filter: 'COMPLETED'}]
+        [{id: tolistId1, title: 'What to learn', filter: 'All'},
+            {id: tolistId2, title: 'What to Byu', filter: 'All'}]
     )
 
     let [tasks, setTask] = useState<TaskStateType>({
@@ -34,7 +34,7 @@ function App() {
             {id: v1(), isDone: false, taskTitle: 'REACT'}
         ],
         [tolistId2]: [{id: v1(), isDone: false, taskTitle: 'JS'},
-            {id: v1(), isDone: true, taskTitle: 'Milk'},
+            {id: v1(), isDone: false, taskTitle: 'Milk'},
             {id: v1(), isDone: false, taskTitle: 'Beer'}
         ]
     })
