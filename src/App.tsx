@@ -29,7 +29,8 @@ function App() {
     )
 
     let [tasks, setTask] = useState<TaskStateType>({
-        [tolistId1]: [{id: v1(), isDone: false, taskTitle: 'JS'},
+        [tolistId1]: [
+            {id: v1(), isDone: false, taskTitle: 'JS'},
             {id: v1(), isDone: true, taskTitle: 'HTML'},
             {id: v1(), isDone: false, taskTitle: 'REACT'}
         ],
