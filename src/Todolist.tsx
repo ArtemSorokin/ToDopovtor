@@ -1,5 +1,5 @@
 import React, {ChangeEvent, FC, MouseEvent} from "react";
-import {FilterValueTypes} from "./App";
+import {FilterValueTypes} from "./AppWithRedux";
 import {AddItemForm} from "./AddItemFormPropsType";
 import {EditableSpan} from "./EditableSpan";
 import {Button, Checkbox, IconButton} from "@mui/material";
