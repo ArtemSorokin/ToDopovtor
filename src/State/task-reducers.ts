@@ -49,7 +49,6 @@ export const taskReducer = (state: TaskStateType = initialState, action: actions
 
             return copyState
         }
-
         case 'AddTask': {
             let copyState = {...state}
             let newTask = {
@@ -61,21 +60,30 @@ export const taskReducer = (state: TaskStateType = initialState, action: actions
             return copyState
         }
         case 'Change Task Status': {
-            let copyState = {...state}
-            let task = copyState[action.todolistId].find(t => t.id === action.taskId)
-            if (task) {
-                task.isDone = action.taskStatus
-            }
-            return {...copyState}
+            // let copyState =   state[action.todolistId]
+            // let task = copyState.find(t => t.id === action.taskId)
+            // if (task) {
+            //     task.isDone = action.taskStatus
+            //
+            // }
+            // state[action.todolistId] = [...copyState]
+            // return {...state}
+            let copyState =   state[action.todolistId]
+            state[action.todolistId] = copyState.map( t=> t.id === action.taskId? {...t, isDone: action.taskStatus} : t)
+            return {...state}
         }
         case 'ChangeTaskTitle': {
-            let copyState = {...state}
-            let task = copyState[action.todolistId].find(t=>t.id === action.taskId)
-            if(task){
-                task.taskTitle = action.taskTitle
-            }
+            let copyState = state[action.todolistId]
+            state[action.todolistId] = copyState.map( t => t.id === action.taskId? {...t, taskTitle: action.taskTitle}: t)
 
-            return copyState
+            //
+            // let task = copyState.find(t=>t.id === action.taskId)
+            // if(task){
+            //     task.taskTitle = action.taskTitle
+            //     state[action.todolistId] = [...copyState]
+            // }
+
+            return {...state}
         }
         case  "AddTodolist": {
             let copyState = {...state}
@@ -87,7 +95,6 @@ export const taskReducer = (state: TaskStateType = initialState, action: actions
            delete  copyState[action.tolistId]
             return copyState
         }
-
         default:
             return state
     }

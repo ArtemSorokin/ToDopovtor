@@ -2,22 +2,27 @@ import React, {ChangeEvent, FC, KeyboardEvent, useState} from "react";
 import {Button, IconButton, TextField} from "@mui/material";
 import AddBoxIcon from '@mui/icons-material/AddBox';
 
-export type AddItemFormPropsType = {
+export type AddItemForm = {
     addItem: (title: string) => void
 }
 
 
-export const AddItemForm:FC<AddItemFormPropsType> =(props)=>{
+export const AddItemForm:FC<AddItemForm> = React.memo ((props)=>{
+    console.log('AddItemFormCalled')
+
     let [inpTaskValue, setInpTaskValue] = useState('')
     let [errorForTaskTitle, setErrorForTaskTitle] = useState('')
 
     const changeInputValueHandler = (e: ChangeEvent<HTMLInputElement>)=> {
-        setErrorForTaskTitle('')
-        setInpTaskValue(e.currentTarget.value)
+
+        if(errorForTaskTitle !== null){
+            setErrorForTaskTitle('')
+            setInpTaskValue(e.currentTarget.value)
+        }else return
     }
     const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>)=>{
         if(e.key === 'Enter') {
-            if(inpTaskValue.trim() !== ''){
+            if(inpTaskValue.trim() !== null){
                 props.addItem(inpTaskValue)
                 setInpTaskValue('')
             } else setErrorForTaskTitle("Title is required")
@@ -36,7 +41,7 @@ export const AddItemForm:FC<AddItemFormPropsType> =(props)=>{
             <TextField variant={'outlined'}
                        label={'Введите название'}
                        value={inpTaskValue} onChange={changeInputValueHandler}
-                   onKeyPress={onKeyPressHandler }
+                       onKeyPress={onKeyPressHandler }
                        error={!!errorForTaskTitle}
                        helperText={!!errorForTaskTitle ? errorForTaskTitle : ''}
             />
@@ -45,5 +50,5 @@ export const AddItemForm:FC<AddItemFormPropsType> =(props)=>{
             </IconButton>
         </div>
     )
-}
+} )
 
